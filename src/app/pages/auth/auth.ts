@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// Importaremos el AuthService más adelante cuando lo conectemos
+import { AuthService } from '../../core/services/auth/auth.service'; 
 
 @Component({
   selector: 'app-auth',
@@ -13,17 +13,15 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private authService = inject(AuthService); // Inyección del servicio
 
-  // Signal para controlar si mostramos Login o Registro
   isLoginMode = signal(true);
 
-  // Formulario reactivo para el Login
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
-  // Formulario reactivo para el Registro 
   registerForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -39,15 +37,28 @@ export class AuthComponent {
     this.isLoginMode.set(!this.isLoginMode());
   }
 
-  onSubmitLogin() {
+  async onSubmitLogin() {
     if (this.loginForm.valid) {
-      console.log('Intento de login con:', this.loginForm.getRawValue());
+      const { email, password } = this.loginForm.getRawValue();
+      try {
+        await this.authService.iniciarSesion(email, password);
+        alert('¡Inicio de sesión exitoso!');
+        // this.router.navigate(['/cartelera']); // Lo descomento cuando exista la ruta
+      } catch (error: any) {
+        alert('Error al iniciar sesión: ' + error.message);
+      }
     }
   }
 
-  onSubmitRegister() {
+  async onSubmitRegister() {
     if (this.registerForm.valid) {
-      console.log('Intento de registro con:', this.registerForm.getRawValue());
+      try {
+        await this.authService.registrarUsuario(this.registerForm.getRawValue());
+        alert('¡Cuenta creada con éxito! Ya podés iniciar sesión.');
+        this.toggleMode(); // Alterna automáticamente la vista a Login
+      } catch (error: any) {
+        alert('Error en el registro: ' + error.message);
+      }
     }
   }
 }

@@ -1,46 +1,52 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { SupabaseService } from '../supabase/supabase';
-import { User } from '@supabase/supabase-js';
+import { Injectable } from '@angular/core';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+providedIn: 'root'
 })
 export class AuthService {
-    private supabase = inject(SupabaseService).client;
-
-    // Con esto se quien esta esta logueado
-currentUser = signal<User | null>(null);
+private supabase: SupabaseClient;
 
 constructor() {
-    // Actualizo en tiempo real si el usuario entra o sale
-    this.supabase.auth.onAuthStateChange((event, session) => {
-    this.currentUser.set(session?.user || null);
-    });
+    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 }
 
-
-async registrarPrimerAdmin(email: string, password: string, nombre: string, apellido: string) {
-    //Creo el usuario en el motor de autenticacion de Supabase
+async registrarUsuario(datos: any) {
+    // 1. Creo el usuario en el sistema de Auth
     const { data: authData, error: authError } = await this.supabase.auth.signUp({
+    email: datos.email,
+    password: datos.password,
+    });
+
+    if (authError) throw authError;
+
+    // 2. Inserto la informacion obligatoria en la tabla perfiles
+    if (authData.user) {
+    const { error: dbError } = await this.supabase.from('perfiles').insert({
+        id: authData.user.id,
+        email: datos.email,
+        nombre: datos.nombre,
+        apellido: datos.apellido,
+        fecha_nacimiento: datos.fecha_nacimiento,
+        tipo_sangre: datos.tipo_sangre,
+        color_ojos: datos.color_ojos,
+        dias_vacaciones: datos.dias_vacaciones,
+        rol: 'cliente_registrado'
+    });
+    
+    if (dbError) throw dbError;
+    }
+    return authData;
+}
+
+async iniciarSesion(email: string, password: string) {
+    const { data, error } = await this.supabase.auth.signInWithPassword({
     email,
     password
     });
     
-    if (authError) throw authError;
-
-    //Creo el usuario forzando el rol admin vinculando el id
-    if (authData.user) {
-    const { error: profileError } = await this.supabase.from('perfiles').insert({
-        id: authData.user.id,
-        email: email,
-        nombre: nombre,
-        apellido: apellido,
-        rol: 'admin' 
-    });
-    
-    if (profileError) throw profileError;
-    }
-    
-    return authData;
-    }
+    if (error) throw error;
+    return data;
+}
 }

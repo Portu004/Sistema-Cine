@@ -1,0 +1,174 @@
+$primary-color: #e50914; 
+$primary-hover: #f40612;
+$bg-dark: #141414;
+$surface-dark: #222222;
+$text-light: #f5f5f5;
+$text-muted: #aaaaaa;
+$border-radius: 8px;
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $bg-dark;
+  background-image: radial-gradient(circle at center, #2a2a2a 0%, $bg-dark 100%);
+  color: $text-light;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.auth-container {
+  background-color: $surface-dark;
+  padding: 2.5rem;
+  border-radius: $border-radius;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+
+  h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: $text-light;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: $primary-color;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    
+    &.register-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 1rem;
+
+      .full-width {
+        grid-column: span 2;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: $text-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 0.85rem 1rem;
+      border-radius: $border-radius;
+      border: 1px solid #333;
+      background-color: #1a1a1a;
+      color: $text-light;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: #555;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
+      }
+      
+      
+      &::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+        opacity: 0.6;
+        &:hover { opacity: 1; }
+      }
+    }
+
+    button[type="submit"] {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: none;
+      border-radius: $border-radius;
+      background-color: $primary-color;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+
+      &:hover:not(:disabled) {
+        background-color: $primary-hover;
+      }
+
+      &:active:not(:disabled) {
+        transform: scale(0.98);
+      }
+
+      &:disabled {
+        background-color: #444;
+        color: #777;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .toggle-text {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: $text-muted;
+
+    button {
+      background: none;
+      border: none;
+      color: $text-light;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0 5px;
+      font-size: 0.95rem;
+      text-decoration: underline;
+      text-decoration-color: $primary-color;
+      text-underline-offset: 4px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+// Media Query para celulares
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 1.5rem;
+    box-shadow: none; 
+    
+    form.register-form {
+      grid-template-columns: 1fr; 
+      
+      .full-width {
+        grid-column: span 1;
+      }
+    }
+  }
+}

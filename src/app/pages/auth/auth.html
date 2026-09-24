@@ -1,0 +1,73 @@
+<div class="auth-container">
+  
+  @if (isLoginMode()) {
+    <h2>Iniciar Sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+      
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="tu@email.com">
+      </div>
+      
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres">
+      </div>
+      
+      <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+    </form>
+    
+    <p class="toggle-text">¿No tenés cuenta? <button type="button" (click)="toggleMode()">Registrate acá</button></p>
+  } 
+  
+  @else {
+    <h2>Registro de Cliente</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()" class="register-form">
+      
+      <div class="form-group full-width">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="tu@email.com">
+      </div>
+      
+      <div class="form-group full-width">
+        <label>Contraseña</label>
+        <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres">
+      </div>
+      
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" formControlName="nombre">
+      </div>
+      
+      <div class="form-group">
+        <label>Apellido</label>
+        <input type="text" formControlName="apellido">
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <input type="date" formControlName="fecha_nacimiento">
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de Sangre</label>
+        <input type="text" formControlName="tipo_sangre" placeholder="Ej: O+">
+      </div>
+
+      <div class="form-group">
+        <label>Color de Ojos</label>
+        <input type="text" formControlName="color_ojos">
+      </div>
+
+      <div class="form-group">
+        <label>Días de Vacaciones</label>
+        <input type="number" formControlName="dias_vacaciones" min="0">
+      </div>
+      
+      <button type="submit" class="full-width" [disabled]="registerForm.invalid">Crear Cuenta</button>
+    </form>
+    
+    <p class="toggle-text">¿Ya tenés cuenta? <button type="button" (click)="toggleMode()">Iniciá sesión</button></p>
+  }
+
+</div>
