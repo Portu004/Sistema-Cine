@@ -1,0 +1,49 @@
+<div class="auth-container">
+
+    @if (isLoginMode()) {
+    <h2>Iniciar Sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+    <label>Email</label>
+    <input type="email" formControlName="email">
+
+    <label>Contraseña</label>
+    <input type="password" formControlName="password">
+
+    <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+    </form>
+    <p>¿No tenés cuenta? <button type="button" (click)="toggleMode()">Registrate acá</button></p>
+} 
+
+@else {
+    <h2>Registro de Cliente</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+    <label>Email</label>
+    <input type="email" formControlName="email">
+
+    <label>Contraseña</label>
+    <input type="password" formControlName="password">
+
+    <label>Nombre</label>
+    <input type="text" formControlName="nombre">
+
+    <label>Apellido</label>
+    <input type="text" formControlName="apellido">
+
+    <label>Fecha de Nacimiento</label>
+    <input type="date" formControlName="fecha_nacimiento">
+
+    <label>Tipo de Sangre</label>
+    <input type="text" formControlName="tipo_sangre">
+
+    <label>Color de Ojos</label>
+    <input type="text" formControlName="color_ojos">
+
+    <label>Días de Vacaciones por Año</label>
+    <input type="number" formControlName="dias_vacaciones">
+
+    <button type="submit" [disabled]="registerForm.invalid">Crear Cuenta</button>
+    </form>
+    <p>¿Ya tenés cuenta? <button type="button" (click)="toggleMode()">Iniciá sesión</button></p>
+}
+
+</div>
