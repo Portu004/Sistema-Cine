@@ -49,4 +49,29 @@ async iniciarSesion(email: string, password: string) {
     if (error) throw error;
     return data;
 }
+
+// se fija si supabase tiene un token valido en su navegador
+async obtenerSesion() {
+    const { data, error } = await this.supabase.auth.getSession();
+    if (error) throw error;
+    return data.session;
+}
+
+async cerrarSesion() {
+    const { error } = await this.supabase.auth.signOut();
+    if (error) throw error;
+}
+
+async obtenerPerfilUsuario(userId: string) {
+    const { data, error } = await this.supabase
+    .from('perfiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+    
+    if (error) throw error;
+    return data;
+}
+
+
 }

@@ -26,42 +26,94 @@
       
       <div class="form-group full-width">
         <label>Email</label>
-        <input type="email" formControlName="email" placeholder="tu@email.com">
+        <input type="text" formControlName="email" placeholder="tu@email.com"
+        [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+          <span class="error-msg">Formato de email inválido.</span>
+        }
       </div>
       
       <div class="form-group full-width">
         <label>Contraseña</label>
-        <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres">
+        <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres"
+        [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+          <span class="error-msg">La contraseña debe tener al menos 6 caracteres.</span>
+        }
       </div>
       
       <div class="form-group">
         <label>Nombre</label>
-        <input type="text" formControlName="nombre">
+        <input type="text" formControlName="nombre"
+        [class.is-invalid]="registerForm.get('apellido')?.invalid && (registerForm.get('apellido')?.touched || registerForm.get('apellido')?.dirty)">
+        @if (registerForm.get('nombre')?.hasError('pattern') && registerForm.get('nombre')?.touched) {
+          <span class="error-msg">Solo se permiten letras.</span>
+        }
       </div>
       
       <div class="form-group">
         <label>Apellido</label>
-        <input type="text" formControlName="apellido">
+        <input type="text" formControlName="apellido"
+        [class.is-invalid]="registerForm.get('apellido')?.invalid && (registerForm.get('apellido')?.touched || registerForm.get('apellido')?.dirty)">
+        @if (registerForm.get('apellido')?.hasError('pattern') && (registerForm.get('apellido')?.touched || registerForm.get('apellido')?.dirty)) {
+          <span class="error-msg">Solo se permiten letras.</span>
+        }
       </div>
 
       <div class="form-group">
         <label>Fecha de Nacimiento</label>
-        <input type="date" formControlName="fecha_nacimiento">
+        <input type="text" formControlName="fecha_nacimiento" placeholder="DD/MM/AAAA" maxlength="10"
+        [class.is-invalid]="registerForm.get('fecha_nacimiento')?.invalid && registerForm.get('fecha_nacimiento')?.touched">
+        @if (registerForm.get('fecha_nacimiento')?.hasError('pattern') && registerForm.get('fecha_nacimiento')?.touched) {
+          <span class="error-msg">Fecha inválida. Use formato DD/MM/AAAA.</span>
+        }
       </div>
 
       <div class="form-group">
         <label>Tipo de Sangre</label>
-        <input type="text" formControlName="tipo_sangre" placeholder="Ej: O+">
+        <select formControlName="tipo_sangre" [class.is-invalid]="registerForm.get('tipo_sangre')?.invalid && registerForm.get('tipo_sangre')?.touched">
+          <option value="" disabled selected>Seleccione...</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+        @if (registerForm.get('tipo_sangre')?.invalid && registerForm.get('tipo_sangre')?.touched) {
+          <span class="error-msg">Campo requerido.</span>
+        }
       </div>
 
       <div class="form-group">
         <label>Color de Ojos</label>
-        <input type="text" formControlName="color_ojos">
+        <select formControlName="color_ojos" [class.is-invalid]="registerForm.get('color_ojos')?.invalid && registerForm.get('color_ojos')?.touched">
+          <option value="" disabled selected>Seleccione...</option>
+          <option value="Marrones">Marrones</option>
+          <option value="Azules">Azules</option>
+          <option value="Verdes">Verdes</option>
+          <option value="Avellana">Avellana</option>
+          <option value="Grises">Grises</option>
+          <option value="Negros">Negros</option>
+        </select>
+        @if (registerForm.get('color_ojos')?.invalid && registerForm.get('color_ojos')?.touched) {
+          <span class="error-msg">Campo requerido.</span>
+        }
       </div>
 
       <div class="form-group">
         <label>Días de Vacaciones</label>
-        <input type="number" formControlName="dias_vacaciones" min="0">
+        <input type="number" formControlName="dias_vacaciones" min="0" max="365"
+        [class.is-invalid]="registerForm.get('dias_vacaciones')?.invalid && (registerForm.get('dias_vacaciones')?.touched || registerForm.get('dias_vacaciones')?.dirty)">
+        
+        @if (registerForm.get('dias_vacaciones')?.hasError('max') && (registerForm.get('dias_vacaciones')?.touched || registerForm.get('dias_vacaciones')?.dirty)) {
+          <span class="error-msg">El máximo permitido es 365.</span>
+        }
+        @if (registerForm.get('dias_vacaciones')?.hasError('min') && (registerForm.get('dias_vacaciones')?.touched || registerForm.get('dias_vacaciones')?.dirty)) {
+          <span class="error-msg">No puede ser negativo.</span>
+        }
       </div>
       
       <button type="submit" class="full-width" [disabled]="registerForm.invalid">Crear Cuenta</button>
