@@ -1,1 +1,92 @@
-<p>dashboard works!</p>
+<div class="backoffice-container">
+<header class="admin-header">
+    <h2>Panel de Administración</h2>
+    <p>Alta, Baja y Modificación de Cartelera</p>
+</header>
+
+<section class="form-section">
+    <h3>Cargar Nueva Película</h3>
+    
+    <form [formGroup]="peliculaForm" (ngSubmit)="onSubmitPelicula()" class="pelicula-form">
+    
+    <div class="form-group full-width">
+        <label>Título de la Película</label>
+        <input type="text" formControlName="titulo" placeholder="Ej: Matrix Resurrecciones"
+    [class.is-invalid]="peliculaForm.get('titulo')?.invalid && (peliculaForm.get('titulo')?.touched || peliculaForm.get('titulo')?.dirty)">
+    </div>
+
+    <div class="form-group full-width">
+        <label>Sinopsis</label>
+        <textarea formControlName="sinopsis" rows="3" placeholder="Breve descripción de la trama..."
+    [class.is-invalid]="peliculaForm.get('sinopsis')?.invalid && (peliculaForm.get('sinopsis')?.touched || peliculaForm.get('sinopsis')?.dirty)"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Género</label>
+        <select formControlName="genero" [class.is-invalid]="peliculaForm.get('genero')?.invalid && (peliculaForm.get('genero')?.touched || peliculaForm.get('genero')?.dirty)">
+    <option value="" disabled selected>Seleccione...</option>
+    <option value="Acción">Acción</option>
+    <option value="Ciencia Ficción">Ciencia Ficción</option>
+    <option value="Comedia">Comedia</option>
+    <option value="Drama">Drama</option>
+    <option value="Terror">Terror</option>
+    <option value="Animación">Animación</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Duración (minutos)</label>
+        <input type="number" formControlName="duracion" placeholder="Ej: 120" min="30" max="300"
+        [class.is-invalid]="peliculaForm.get('duracion')?.invalid && (peliculaForm.get('duracion')?.touched || peliculaForm.get('duracion')?.dirty)">
+        
+        @if (peliculaForm.get('duracion')?.hasError('max') && (peliculaForm.get('duracion')?.touched || peliculaForm.get('duracion')?.dirty)) {
+        <span class="error-msg">La duración máxima permitida es de 300 minutos.</span>
+        }
+        @if (peliculaForm.get('duracion')?.hasError('min') && (peliculaForm.get('duracion')?.touched || peliculaForm.get('duracion')?.dirty)) {
+        <span class="error-msg">La duración mínima es de 30 minutos.</span>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Fecha de Estreno</label>
+        <input type="text" formControlName="fecha_estreno" placeholder="DD/MM/AAAA" maxlength="10"
+    [class.is-invalid]="peliculaForm.get('fecha_estreno')?.invalid && (peliculaForm.get('fecha_estreno')?.touched || peliculaForm.get('fecha_estreno')?.dirty)">
+    </div>
+
+    <div class="form-group">
+        <label>Fecha de Salida</label>
+        <input type="text" formControlName="fecha_salida" placeholder="DD/MM/AAAA" maxlength="10"
+    [class.is-invalid]="peliculaForm.get('fecha_salida')?.invalid && (peliculaForm.get('fecha_salida')?.touched || peliculaForm.get('fecha_salida')?.dirty)">
+    </div>
+
+    <div class="form-group">
+        <label>Precio de Entrada ($)</label>
+        <input type="number" formControlName="precio_entrada" placeholder="Ej: 4500"
+    [class.is-invalid]="peliculaForm.get('precio_entrada')?.invalid && (peliculaForm.get('precio_entrada')?.touched || peliculaForm.get('precio_entrada')?.dirty)">
+    </div>
+
+    <div class="form-group">
+        <label>URL del Póster</label>
+        <input type="text" formControlName="poster_url" placeholder="https://..."
+    [class.is-invalid]="peliculaForm.get('poster_url')?.invalid && (peliculaForm.get('poster_url')?.touched || peliculaForm.get('poster_url')?.dirty)">
+    </div>
+
+
+    @if (peliculaForm.hasError('fechasIncoherentes') && peliculaForm.get('fecha_salida')?.dirty) {
+        <div class="full-width error-msg" style="text-align: center; font-size: 0.95rem; margin-top: -10px; margin-bottom: 10px; color: red;">
+        ⚠️ La fecha de salida debe ser posterior al estreno.
+        </div>
+    }
+    @if (peliculaForm.hasError('demasiadosDias') && peliculaForm.get('fecha_salida')?.dirty) {
+        <div class="full-width error-msg" style="text-align: center; font-size: 0.95rem; margin-top: -10px; margin-bottom: 10px; color: red;">
+        ⚠️ Una pelicula no puede estar más de 90 días en cartelera. Revisá las fechas.
+        </div>
+    }
+
+    <div class="form-actions full-width">
+        <button type="submit" [disabled]="peliculaForm.invalid">Guardar Película en Cartelera</button>
+    </div>
+
+    </form>
+  </section>
+</div>

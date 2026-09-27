@@ -1,0 +1,131 @@
+.backoffice-container {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    color: var(--color-texto);
+
+.admin-header {
+    margin-bottom: 2rem;
+    
+h2 {
+    color: var(--color-primario);
+    margin-bottom: 0.2rem;
+    }
+    
+p {
+    color: var(--color-texto-muted);
+    margin-top: 0;
+    font-size: 0.95rem;
+    }
+  }
+}
+
+.form-section {
+    background-color: var(--bg-superficie);
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: var(--color-texto);
+    border-bottom: 1px solid var(--color-secundario);
+    padding-bottom: 0.8rem;
+    }
+}
+
+.pelicula-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+.full-width {
+    grid-column: span 2;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+label {
+    font-size: 0.85rem;
+    color: var(--color-texto-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    }
+
+input, select, textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.85rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--color-secundario);
+    background-color: var(--bg-principal);
+    color: var(--color-texto);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+
+        &::placeholder {
+        color: var(--color-texto-muted);
+        opacity: 0.7;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: var(--color-primario);
+        box-shadow: 0 0 0 2px rgba(60, 120, 180, 0.3);
+}
+
+        /* Efecto de error */
+    &.is-invalid {
+    border-color: #e50914;
+    &:focus {
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
+        }
+    }
+}
+
+    textarea {
+    resize: vertical;
+    }
+}
+
+.form-actions {
+    margin-top: 1rem;
+    
+button {
+    width: 100%;
+    padding: 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--color-primario);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-primario-hover);
+}
+
+    &:disabled {
+        background-color: var(--color-secundario);
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    }
+}
+}
+
+@media (max-width: 768px) {
+.pelicula-form {
+    grid-template-columns: 1fr;
+    .full-width {
+    grid-column: span 1;
+    }
+  }
+}
