@@ -10,9 +10,9 @@
     <form [formGroup]="peliculaForm" (ngSubmit)="onSubmitPelicula()" class="pelicula-form">
     
     <div class="form-group full-width">
-        <label>Título de la Película</label>
-        <input type="text" formControlName="titulo" placeholder="Ej: Matrix Resurrecciones"
-    [class.is-invalid]="peliculaForm.get('titulo')?.invalid && (peliculaForm.get('titulo')?.touched || peliculaForm.get('titulo')?.dirty)">
+        <label>Nombre de la Película</label>
+        <input type="text" formControlName="nombre" placeholder="Ej: Matrix Resurrecciones"
+        [class.is-invalid]="peliculaForm.get('nombre')?.invalid && (peliculaForm.get('nombre')?.touched || peliculaForm.get('nombre')?.dirty)">
     </div>
 
     <div class="form-group full-width">
@@ -22,27 +22,39 @@
     </div>
 
     <div class="form-group">
-        <label>Género</label>
-        <select formControlName="genero" [class.is-invalid]="peliculaForm.get('genero')?.invalid && (peliculaForm.get('genero')?.touched || peliculaForm.get('genero')?.dirty)">
-    <option value="" disabled selected>Seleccione...</option>
-    <option value="Acción">Acción</option>
-    <option value="Ciencia Ficción">Ciencia Ficción</option>
-    <option value="Comedia">Comedia</option>
-    <option value="Drama">Drama</option>
-    <option value="Terror">Terror</option>
-    <option value="Animación">Animación</option>
+        <label>Géneros</label>
+        <select formControlName="generos" [class.is-invalid]="peliculaForm.get('generos')?.invalid && (peliculaForm.get('generos')?.touched || peliculaForm.get('generos')?.dirty)">
+        <option value="" disabled selected>Seleccione...</option>
+        <option value="Acción">Acción</option>
+        <option value="Ciencia Ficción">Ciencia Ficción</option>
+        <option value="Comedia">Comedia</option>
+        <option value="Drama">Drama</option>
+        <option value="Terror">Terror</option>
+        <option value="Animación">Animación</option>
         </select>
     </div>
 
     <div class="form-group">
+        <label>Clasificación</label>
+        <select formControlName="clasificacion" [class.is-invalid]="peliculaForm.get('clasificacion')?.invalid && (peliculaForm.get('clasificacion')?.touched || peliculaForm.get('clasificacion')?.dirty)">
+        <option value="" disabled selected>Seleccione...</option>
+        <option value="ATP">ATP (Apta todo público)</option>
+        <option value="+13">+13 (Apta mayores de 13)</option>
+        <option value="+16">+16 (Apta mayores de 16)</option>
+        <option value="+18">+18 (Apta mayores de 18)</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
         <label>Duración (minutos)</label>
-        <input type="number" formControlName="duracion" placeholder="Ej: 120" min="30" max="300"
-        [class.is-invalid]="peliculaForm.get('duracion')?.invalid && (peliculaForm.get('duracion')?.touched || peliculaForm.get('duracion')?.dirty)">
+        <input type="number" formControlName="duracion_minutos" placeholder="Ej: 120" min="30" max="300"
+        [class.is-invalid]="peliculaForm.get('duracion_minutos')?.invalid && (peliculaForm.get('duracion_minutos')?.touched || peliculaForm.get('duracion_minutos')?.dirty)">
         
-        @if (peliculaForm.get('duracion')?.hasError('max') && (peliculaForm.get('duracion')?.touched || peliculaForm.get('duracion')?.dirty)) {
+        @if (peliculaForm.get('duracion_minutos')?.hasError('max') && (peliculaForm.get('duracion_minutos')?.touched || peliculaForm.get('duracion_minutos')?.dirty)) {
         <span class="error-msg">La duración máxima permitida es de 300 minutos.</span>
         }
-        @if (peliculaForm.get('duracion')?.hasError('min') && (peliculaForm.get('duracion')?.touched || peliculaForm.get('duracion')?.dirty)) {
+        @if (peliculaForm.get('duracion_minutos')?.hasError('min') && (peliculaForm.get('duracion_minutos')?.touched || peliculaForm.get('duracion_minutos')?.dirty)) {
         <span class="error-msg">La duración mínima es de 30 minutos.</span>
         }
     </div>
@@ -60,15 +72,15 @@
     </div>
 
     <div class="form-group">
-        <label>Precio de Entrada ($)</label>
-        <input type="number" formControlName="precio_entrada" placeholder="Ej: 4500"
-    [class.is-invalid]="peliculaForm.get('precio_entrada')?.invalid && (peliculaForm.get('precio_entrada')?.touched || peliculaForm.get('precio_entrada')?.dirty)">
+        <label>Precio de Preventa ($)</label>
+        <input type="number" formControlName="precio_preventa" placeholder="Ej: 4500"
+        [class.is-invalid]="peliculaForm.get('precio_preventa')?.invalid && (peliculaForm.get('precio_preventa')?.touched || peliculaForm.get('precio_preventa')?.dirty)">
     </div>
 
     <div class="form-group">
         <label>URL del Póster</label>
-        <input type="text" formControlName="poster_url" placeholder="https://..."
-    [class.is-invalid]="peliculaForm.get('poster_url')?.invalid && (peliculaForm.get('poster_url')?.touched || peliculaForm.get('poster_url')?.dirty)">
+        <input type="text" formControlName="imagen_url" placeholder="https://..."
+        [class.is-invalid]="peliculaForm.get('imagen_url')?.invalid && (peliculaForm.get('imagen_url')?.touched || peliculaForm.get('imagen_url')?.dirty)">
     </div>
 
 
@@ -84,7 +96,7 @@
     }
 
     <div class="form-actions full-width">
-        <button type="submit" [disabled]="peliculaForm.invalid">Guardar Película en Cartelera</button>
+        <button type="submit" >Guardar Película en Cartelera</button>
     </div>
 
     </form>
