@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PeliculasService } from '../../../core/services/peliculas/peliculas';
+import { CurrencyPipe } from '@angular/common';
+
 
 const validarFechasCartelera = (control: AbstractControl): ValidationErrors | null => {
   const estreno = control.get('fecha_estreno')?.value;
@@ -33,15 +35,18 @@ const validarFechasCartelera = (control: AbstractControl): ValidationErrors | nu
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
 export class Dashboard {
   private fb = inject(FormBuilder);
   private peliculasService = inject(PeliculasService);
-
   private formatoFecha = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(20)\d\d$/;
+  // --- MÉTRICAS DEL REPORTE (Simuladas por ahora) ---
+  facturacionHoy: number = 245000;
+  entradasVendidasHoy: number = 54;
+  peliculasEnCartelera: number = 8;
 
   peliculaForm = this.fb.nonNullable.group({
     nombre: ['', [Validators.required]],

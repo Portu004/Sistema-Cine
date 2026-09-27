@@ -4,6 +4,46 @@
     <p>Alta, Baja y Modificación de Cartelera</p>
 </header>
 
+<section class="metrics-dashboard">
+    
+    <div class="metric-card">
+      <div class="icon-wrapper">
+        <i class="fas fa-chart-line"></i> 
+        <!-- Si no tenés FontAwesome, podés usar un emoji provisorio: 💰 -->
+      </div>
+      <div class="metric-data">
+        <p>Facturación del Día</p>
+        <!-- Usamos el pipe currency de Angular para formatear en pesos -->
+        <h3>{{ facturacionHoy | currency:'ARS':'symbol-narrow':'1.0-0' }}</h3>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="icon-wrapper accent">
+        <i class="fas fa-ticket-alt"></i>
+        <!-- Emoji provisorio: 🎟️ -->
+      </div>
+      <div class="metric-data">
+        <p>Entradas Vendidas</p>
+        <h3>{{ entradasVendidasHoy }}</h3>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="icon-wrapper secondary">
+        <i class="fas fa-film"></i>
+        <!-- Emoji provisorio: 🎬 -->
+      </div>
+      <div class="metric-data">
+        <p>Películas Activas</p>
+        <h3>{{ peliculasEnCartelera }}</h3>
+      </div>
+    </div>
+
+  </section>
+
+
+
 <section class="form-section">
     <h3>Cargar Nueva Película</h3>
     
