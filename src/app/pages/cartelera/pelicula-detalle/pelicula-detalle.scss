@@ -1,0 +1,157 @@
+.detalle-container {
+  padding: 2rem 5%;
+  background-color: var(--bg-principal, #000014);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.btn-volver {
+  background: none;
+  border: none;
+  color: #3c78b4;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  padding: 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #4a90e2;
+  }
+}
+
+.detalle-content {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.poster-col {
+  flex: 0 0 350px;
+  
+  .poster-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+.info-col {
+  flex: 1;
+
+  .titulo {
+    font-size: 3rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .badges {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .badge {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      
+      &.highlight {
+        border: 1px solid #3c78b4;
+        background-color: rgba(60, 120, 180, 0.1);
+      }
+    }
+  }
+
+  .sinopsis-box {
+    margin-bottom: 2.5rem;
+    
+    h3 {
+      color: #a0a0a0;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+      color: #e0e0e0;
+    }
+  }
+}
+
+.compra-section {
+  background-color: var(--bg-superficie, #001428);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(60, 120, 180, 0.2);
+
+  h2 {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .precio {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    
+    strong {
+      color: #3c78b4;
+      font-size: 1.3rem;
+    }
+  }
+
+  .horarios-grid {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .btn-horario {
+      background-color: transparent;
+      border: 1px solid #3c78b4;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: rgba(60, 120, 180, 0.1);
+      }
+      
+      &.active {
+        background-color: #3c78b4;
+      }
+    }
+  }
+
+  .btn-comprar-principal {
+    width: 100%;
+    background-color: #3c78b4;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #4a90e2;
+    }
+  }
+}

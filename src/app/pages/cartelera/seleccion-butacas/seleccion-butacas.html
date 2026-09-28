@@ -1,0 +1,38 @@
+<section class="butacas-container">
+<button class="btn-volver" (click)="volver()">← Volver a la Película</button>
+
+<!-- Efecto visual de la pantalla -->
+<div class="pantalla-cine">PANTALLA</div>
+
+<div class="grilla-butacas">
+    @for (butaca of butacas; track butaca.id) {
+    <div 
+        class="butaca" 
+        [ngClass]="butaca.estado"
+        (click)="toggleButaca(butaca)"
+        title="Butaca {{ butaca.id }}">
+        {{ butaca.id }}
+    </div>
+    }
+</div>
+
+<div class="leyenda">
+    <div class="item"><span class="caja disponible"></span> Disponible</div>
+    <div class="item"><span class="caja seleccionado"></span> Tu Selección</div>
+    <div class="item"><span class="caja ocupado"></span> Ocupada</div>
+</div>
+
+<div class="resumen-compra">
+    <h3>Entradas seleccionadas: {{ butacasSeleccionadas.length }}</h3>
+    
+    <div class="lista-butacas">
+    @for (b of butacasSeleccionadas; track b.id) {
+        <span class="badge-butaca">{{ b.id }}</span>
+    }
+    </div>
+
+    <button class="btn-comprar" [disabled]="butacasSeleccionadas.length === 0" (click)="confirmarReserva()">
+    Confirmar Asientos
+    </button>
+</div>
+</section>

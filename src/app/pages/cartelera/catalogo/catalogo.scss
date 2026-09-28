@@ -1,0 +1,107 @@
+.cartelera-container {
+  padding: 2rem 5%;
+  background-color: var(--bg-principal, #000014);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.titulo-seccion {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #3c78b4;
+  padding-left: 1rem;
+}
+
+.grilla-peliculas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.pelicula-card {
+  background-color: var(--bg-superficie, #001428);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(60, 120, 180, 0.3);
+    
+    .poster-img {
+      filter: brightness(1.1);
+    }
+  }
+}
+
+.poster-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3; 
+  
+  .poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+  }
+
+  .clasificacion-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 20, 0.8);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid #3c78b4;
+  }
+}
+
+.pelicula-info {
+  padding: 1rem;
+
+  .pelicula-titulo {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .pelicula-generos {
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    margin: 0 0 1rem 0;
+  }
+
+  .compra-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1rem;
+
+    .precio {
+      font-weight: bold;
+      color: #3c78b4;
+    }
+
+    .btn-comprar {
+      background-color: #3c78b4;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #4a90e2;
+      }
+    }
+  }
+}

@@ -1,1 +1,32 @@
-<p>catalogo works!</p>
+<section class="cartelera-container">
+<h1 class="titulo-seccion">En Cartelera</h1>
+
+@if (cargando) {
+    <div class="loader-container">
+    <p>Cargando películas...</p>
+    </div>
+} @else if (peliculas.length === 0) {
+    <div class="empty-state">
+    <p>No hay películas en cartelera en este momento.</p>
+    </div>
+} @else {
+    <div class="grilla-peliculas">
+    @for (peli of peliculas; track peli.id) {
+        <article class="pelicula-card">
+        <div class="poster-wrapper">
+            <img [src]="peli.imagen_url" [alt]="'Póster de ' + peli.nombre" class="poster-img">
+            <div class="clasificacion-badge">{{ peli.clasificacion }}</div>
+        </div>
+        <div class="pelicula-info">
+            <h3 class="pelicula-titulo">{{ peli.nombre }}</h3>
+            <p class="pelicula-generos">{{ peli.generos.join(', ') }} • {{ peli.duracion_minutos }} min</p>
+            <div class="compra-action">
+            <span class="precio">{{ peli.precio_preventa | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
+            <button class="btn-comprar" (click)="verDetalle(peli.id)">Ver Horarios</button>
+            </div>
+        </div>
+        </article>
+    }
+    </div>
+}
+</section>

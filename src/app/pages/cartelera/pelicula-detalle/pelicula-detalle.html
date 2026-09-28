@@ -1,1 +1,58 @@
-<p>pelicula-detalle works!</p>
+<section class="detalle-container">
+@if (cargando) {
+    <div class="loader-container">Cargando detalles de la película...</div>
+} @else if (pelicula) {
+    
+    <button class="btn-volver" (click)="volver()">← Volver a Cartelera</button>
+    
+    <div class="detalle-content">
+    <!-- Columna Izquierda: Póster -->
+    <div class="poster-col">
+        <img [src]="pelicula.imagen_url" [alt]="'Póster de ' + pelicula.nombre" class="poster-img">
+    </div>
+    
+    <!-- Columna Derecha: Información -->
+    <div class="info-col">
+        <h1 class="titulo">{{ pelicula.nombre }}</h1>
+        
+        <div class="badges">
+        <span class="badge">{{ pelicula.clasificacion }}</span>
+        <span class="badge">{{ pelicula.duracion_minutos }} min</span>
+        <span class="badge highlight">{{ pelicula.generos.join(', ') }}</span>
+        </div>
+        
+        <div class="sinopsis-box">
+        <h3>Sinopsis</h3>
+        <p>{{ pelicula.sinopsis }}</p>
+        </div>
+        
+        <div class="compra-section">
+        <h2>Seleccionar Horario</h2>
+        <p class="precio">Entrada general: <strong>{{ pelicula.precio_preventa | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong></p>
+        
+    <div class="horarios-grid">
+            @if (funciones.length === 0) {
+            <p style="color: #a0a0a0;">No hay funciones programadas por el momento.</p>
+            } @else {
+            @for (funcion of funciones; track funcion.id) {
+                <button class="btn-horario" (click)="irAButacas()">
+                <!-- Mostramos la hora  -->
+                <span class="hora">{{ funcion.fecha_hora_inicio | date:'shortTime' }}</span>
+                <div class="detalles-funcion">
+                <span class="badge-mini">{{ funcion.formato }}</span>
+                <span class="badge-mini">{{ funcion.idioma }}</span>
+                </div>
+                </button>
+            }
+            }
+        </div>
+        
+        <button class="btn-comprar-principal" (click)="irAButacas()">Continuar al Pago</button>
+        </div>
+    </div>
+    </div>
+
+} @else {
+    <div class="empty-state">No se encontró la película.</div>
+}
+</section>
