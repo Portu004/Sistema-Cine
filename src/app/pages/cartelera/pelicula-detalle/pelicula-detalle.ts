@@ -54,6 +54,10 @@ irAButacas() {
   }
 
 seleccionarFuncion(funcion: any) {
-    this.funcionSeleccionada = funcion;
+    if (this.funcionSeleccionada && this.funcionSeleccionada.id === funcion.id) {
+      this.funcionSeleccionada = null;
+    } else {
+      this.funcionSeleccionada = funcion;
+    }
   }
 }

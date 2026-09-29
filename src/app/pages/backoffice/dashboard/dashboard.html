@@ -1,144 +1,186 @@
 <div class="backoffice-container">
-<header class="admin-header">
+  <header class="admin-header">
     <h2>Panel de Administración</h2>
     <p>Alta, Baja y Modificación de Cartelera</p>
-</header>
+  </header>
 
-<section class="metrics-dashboard">
-    
+  <section class="metrics-dashboard">
     <div class="metric-card">
       <div class="icon-wrapper">
-        <i class="fas fa-chart-line"></i> 
-        <!-- Si no tenés FontAwesome, podés usar un emoji provisorio: 💰 -->
+        <i class="fas fa-chart-line"></i>
       </div>
       <div class="metric-data">
         <p>Facturación del Día</p>
-        <!-- Usamos el pipe currency de Angular para formatear en pesos -->
         <h3>{{ facturacionHoy | currency:'ARS':'symbol-narrow':'1.0-0' }}</h3>
       </div>
     </div>
-
     <div class="metric-card">
       <div class="icon-wrapper accent">
         <i class="fas fa-ticket-alt"></i>
-        <!-- Emoji provisorio: 🎟️ -->
       </div>
       <div class="metric-data">
         <p>Entradas Vendidas</p>
         <h3>{{ entradasVendidasHoy }}</h3>
       </div>
     </div>
-
     <div class="metric-card">
       <div class="icon-wrapper secondary">
         <i class="fas fa-film"></i>
-        <!-- Emoji provisorio: 🎬 -->
       </div>
       <div class="metric-data">
         <p>Películas Activas</p>
         <h3>{{ peliculasEnCartelera }}</h3>
       </div>
     </div>
-
   </section>
 
-
-
-<section class="form-section">
+  <!-- FORMULARIO 1: PELÍCULAS -->
+  <section class="form-section">
     <h3>Cargar Nueva Película</h3>
-    
     <form [formGroup]="peliculaForm" (ngSubmit)="onSubmitPelicula()" class="pelicula-form">
-    
-    <div class="form-group full-width">
+      <div class="form-group full-width">
         <label>Nombre de la Película</label>
         <input type="text" formControlName="nombre" placeholder="Ej: Matrix Resurrecciones"
-        [class.is-invalid]="peliculaForm.get('nombre')?.invalid && (peliculaForm.get('nombre')?.touched || peliculaForm.get('nombre')?.dirty)">
-    </div>
-
-    <div class="form-group full-width">
+          [class.is-invalid]="peliculaForm.get('nombre')?.invalid && (peliculaForm.get('nombre')?.touched || peliculaForm.get('nombre')?.dirty)">
+      </div>
+      <div class="form-group full-width">
         <label>Sinopsis</label>
         <textarea formControlName="sinopsis" rows="3" placeholder="Breve descripción de la trama..."
-    [class.is-invalid]="peliculaForm.get('sinopsis')?.invalid && (peliculaForm.get('sinopsis')?.touched || peliculaForm.get('sinopsis')?.dirty)"></textarea>
-    </div>
-
-    <div class="form-group">
+          [class.is-invalid]="peliculaForm.get('sinopsis')?.invalid && (peliculaForm.get('sinopsis')?.touched || peliculaForm.get('sinopsis')?.dirty)"></textarea>
+      </div>
+      <div class="form-group">
         <label>Géneros</label>
-        <select formControlName="generos" [class.is-invalid]="peliculaForm.get('generos')?.invalid && (peliculaForm.get('generos')?.touched || peliculaForm.get('generos')?.dirty)">
-        <option value="" disabled selected>Seleccione...</option>
-        <option value="Acción">Acción</option>
-        <option value="Ciencia Ficción">Ciencia Ficción</option>
-        <option value="Comedia">Comedia</option>
-        <option value="Drama">Drama</option>
-        <option value="Terror">Terror</option>
-        <option value="Animación">Animación</option>
+        <select formControlName="generos"
+          [class.is-invalid]="peliculaForm.get('generos')?.invalid && (peliculaForm.get('generos')?.touched || peliculaForm.get('generos')?.dirty)">
+          <option value="" disabled selected>Seleccione...</option>
+          <option value="Acción">Acción</option>
+          <option value="Ciencia Ficción">Ciencia Ficción</option>
+          <option value="Comedia">Comedia</option>
+          <option value="Drama">Drama</option>
+          <option value="Terror">Terror</option>
+          <option value="Animación">Animación</option>
         </select>
-    </div>
-
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <label>Clasificación</label>
-        <select formControlName="clasificacion" [class.is-invalid]="peliculaForm.get('clasificacion')?.invalid && (peliculaForm.get('clasificacion')?.touched || peliculaForm.get('clasificacion')?.dirty)">
-        <option value="" disabled selected>Seleccione...</option>
-        <option value="ATP">ATP (Apta todo público)</option>
-        <option value="+13">+13 (Apta mayores de 13)</option>
-        <option value="+16">+16 (Apta mayores de 16)</option>
-        <option value="+18">+18 (Apta mayores de 18)</option>
+        <select formControlName="clasificacion"
+          [class.is-invalid]="peliculaForm.get('clasificacion')?.invalid && (peliculaForm.get('clasificacion')?.touched || peliculaForm.get('clasificacion')?.dirty)">
+          <option value="" disabled selected>Seleccione...</option>
+          <option value="ATP">ATP (Apta todo público)</option>
+          <option value="+13">+13 (Apta mayores de 13)</option>
+          <option value="+16">+16 (Apta mayores de 16)</option>
+          <option value="+18">+18 (Apta mayores de 18)</option>
         </select>
-    </div>
-
-
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <label>Duración (minutos)</label>
         <input type="number" formControlName="duracion_minutos" placeholder="Ej: 120" min="30" max="300"
-        [class.is-invalid]="peliculaForm.get('duracion_minutos')?.invalid && (peliculaForm.get('duracion_minutos')?.touched || peliculaForm.get('duracion_minutos')?.dirty)">
-        
+          [class.is-invalid]="peliculaForm.get('duracion_minutos')?.invalid && (peliculaForm.get('duracion_minutos')?.touched || peliculaForm.get('duracion_minutos')?.dirty)">
+
         @if (peliculaForm.get('duracion_minutos')?.hasError('max') && (peliculaForm.get('duracion_minutos')?.touched || peliculaForm.get('duracion_minutos')?.dirty)) {
-        <span class="error-msg">La duración máxima permitida es de 300 minutos.</span>
+          <span class="error-msg">La duración máxima permitida es de 300 minutos.</span>
         }
         @if (peliculaForm.get('duracion_minutos')?.hasError('min') && (peliculaForm.get('duracion_minutos')?.touched || peliculaForm.get('duracion_minutos')?.dirty)) {
-        <span class="error-msg">La duración mínima es de 30 minutos.</span>
+          <span class="error-msg">La duración mínima es de 30 minutos.</span>
         }
-    </div>
-
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <label>Fecha de Estreno</label>
         <input type="text" formControlName="fecha_estreno" placeholder="DD/MM/AAAA" maxlength="10"
-    [class.is-invalid]="peliculaForm.get('fecha_estreno')?.invalid && (peliculaForm.get('fecha_estreno')?.touched || peliculaForm.get('fecha_estreno')?.dirty)">
-    </div>
-
-    <div class="form-group">
+          [class.is-invalid]="peliculaForm.get('fecha_estreno')?.invalid && (peliculaForm.get('fecha_estreno')?.touched || peliculaForm.get('fecha_estreno')?.dirty)">
+      </div>
+      <div class="form-group">
         <label>Fecha de Salida</label>
         <input type="text" formControlName="fecha_salida" placeholder="DD/MM/AAAA" maxlength="10"
-    [class.is-invalid]="peliculaForm.get('fecha_salida')?.invalid && (peliculaForm.get('fecha_salida')?.touched || peliculaForm.get('fecha_salida')?.dirty)">
-    </div>
-
-    <div class="form-group">
+          [class.is-invalid]="peliculaForm.get('fecha_salida')?.invalid && (peliculaForm.get('fecha_salida')?.touched || peliculaForm.get('fecha_salida')?.dirty)">
+      </div>
+      <div class="form-group">
         <label>Precio de Preventa ($)</label>
         <input type="number" formControlName="precio_preventa" placeholder="Ej: 4500"
-        [class.is-invalid]="peliculaForm.get('precio_preventa')?.invalid && (peliculaForm.get('precio_preventa')?.touched || peliculaForm.get('precio_preventa')?.dirty)">
-    </div>
-
-    <div class="form-group">
+          [class.is-invalid]="peliculaForm.get('precio_preventa')?.invalid && (peliculaForm.get('precio_preventa')?.touched || peliculaForm.get('precio_preventa')?.dirty)">
+      </div>
+      <div class="form-group">
         <label>URL del Póster</label>
         <input type="text" formControlName="imagen_url" placeholder="https://..."
-        [class.is-invalid]="peliculaForm.get('imagen_url')?.invalid && (peliculaForm.get('imagen_url')?.touched || peliculaForm.get('imagen_url')?.dirty)">
-    </div>
-
-
-    @if (peliculaForm.hasError('fechasIncoherentes') && peliculaForm.get('fecha_salida')?.dirty) {
+          [class.is-invalid]="peliculaForm.get('imagen_url')?.invalid && (peliculaForm.get('imagen_url')?.touched || peliculaForm.get('imagen_url')?.dirty)">
+      </div>
+      @if (peliculaForm.hasError('fechasIncoherentes') && peliculaForm.get('fecha_salida')?.dirty) {
         <div class="full-width error-msg" style="text-align: center; font-size: 0.95rem; margin-top: -10px; margin-bottom: 10px; color: red;">
-        ⚠️ La fecha de salida debe ser posterior al estreno.
+          La fecha de salida debe ser posterior al estreno.
         </div>
-    }
-    @if (peliculaForm.hasError('demasiadosDias') && peliculaForm.get('fecha_salida')?.dirty) {
+      }
+      @if (peliculaForm.hasError('demasiadosDias') && peliculaForm.get('fecha_salida')?.dirty) {
         <div class="full-width error-msg" style="text-align: center; font-size: 0.95rem; margin-top: -10px; margin-bottom: 10px; color: red;">
-        ⚠️ Una pelicula no puede estar más de 90 días en cartelera. Revisá las fechas.
+          Una película no puede estar más de 90 días en cartelera.
         </div>
-    }
-
-    <div class="form-actions full-width">
-        <button type="submit" >Guardar Película en Cartelera</button>
-    </div>
-
+      }
+      <div class="form-actions full-width">
+        <button type="submit">Guardar Película en Cartelera</button>
+      </div>
     </form>
   </section>
+
+  <!-- FORMULARIO 2: FUNCIONES -->
+  <section class="form-section" style="margin-top: 2.5rem;">
+    <h3>Programar Función en Cartelera</h3>
+    
+    <form [formGroup]="funcionForm" (ngSubmit)="guardarFuncion()" class="pelicula-form">
+      <div class="form-group full-width">
+        <label>Película</label>
+        <select formControlName="pelicula_id" [class.is-invalid]="funcionForm.get('pelicula_id')?.invalid && funcionForm.get('pelicula_id')?.touched">
+          <option value="" disabled selected>Seleccione una película...</option>
+          @for (peli of peliculasDisponibles; track peli.id) {
+            <option [value]="peli.id">{{ peli.nombre }}</option>
+          }
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label>Sala</label>
+        <select formControlName="sala_id" [class.is-invalid]="funcionForm.get('sala_id')?.invalid && funcionForm.get('sala_id')?.touched">
+          <option value="1">Sala 1 (28x20)</option>
+          <option value="2">Sala 2 (28x20)</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label>Formato</label>
+        <select formControlName="formato" [class.is-invalid]="funcionForm.get('formato')?.invalid && funcionForm.get('formato')?.touched">
+          <option value="2D">2D</option>
+          <option value="3D">3D</option>
+          <option value="4D">4D</option>
+          <option value="5D">5D</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha Inicio</label>
+        <input type="text" formControlName="fecha_inicio" placeholder="DD/MM/AAAA" maxlength="10" 
+          [class.is-invalid]="funcionForm.get('fecha_inicio')?.invalid && funcionForm.get('fecha_inicio')?.touched">
+      </div>
+  
+      <div class="form-group">
+        <label>Hora Inicio</label>
+        <input type="text" formControlName="hora_inicio" placeholder="HH:MM" maxlength="5"
+          [class.is-invalid]="funcionForm.get('hora_inicio')?.invalid && funcionForm.get('hora_inicio')?.touched">
+      </div>
+
+      <div class="form-group">
+        <label>Fecha Fin</label>
+        <input type="text" formControlName="fecha_fin" placeholder="DD/MM/AAAA" maxlength="10"
+          [class.is-invalid]="funcionForm.get('fecha_fin')?.invalid && funcionForm.get('fecha_fin')?.touched">
+      </div>
+  
+      <div class="form-group">
+        <label>Hora Fin</label>
+        <input type="text" formControlName="hora_fin" placeholder="HH:MM" maxlength="5"
+          [class.is-invalid]="funcionForm.get('hora_fin')?.invalid && funcionForm.get('hora_fin')?.touched">
+      </div>
+  
+      <div class="form-actions full-width">
+        <button type="submit">Programar Horario</button>
+      </div>
+    </form>
+  </section>
+
 </div>

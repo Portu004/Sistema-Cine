@@ -24,6 +24,7 @@
 .pantalla-cine {
   width: 100%;
   max-width: 900px;
+  min-width: 750px;
   height: 50px;
   background: linear-gradient(to bottom, rgba(60, 120, 180, 0.4), transparent);
   border-top: 4px solid #3c78b4;
@@ -45,7 +46,8 @@
   margin-bottom: 3rem;
   width: 100%;
   max-width: 1000px;
-  overflow-x: auto; /* Por si lo abro en un monitor chico */
+  min-width: 750px;
+  overflow-x: auto; /* por si lo abro en un monitor chico */
   padding-bottom: 1rem;
 
   & > :nth-child(28n + 4) {
@@ -97,6 +99,19 @@
     &:hover { color: transparent; transform: none; }
   }
 }
+
+.alertas-validacion {
+  min-height: 25px; /* Para que no salte el diseño cuando aparece el texto */
+  margin-top: 10px;
+  
+  .error-msg {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
 
 .leyenda {
   display: flex;
@@ -150,7 +165,7 @@
     }
   }
 
-  .btn-comprar {
+  .btn-comprar-principal {
     width: 100%;
     background-color: #3c78b4;
     color: white;
@@ -171,5 +186,25 @@
       color: #666;
       cursor: not-allowed;
     }
+  }
+}
+
+.contenedor-grilla {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* esto hace un deslizamiento suave en ios*/
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* se esconde la barra de scroll en navegadores basados en WebKit  */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #3c78b4;
+    border-radius: 4px;
   }
 }

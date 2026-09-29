@@ -2,6 +2,7 @@
 <button class="btn-volver" (click)="volver()">← Volver a la Película</button>
 
 <!-- Efecto visual de la pantalla -->
+<div class="contenedor-grilla">
 <div class="pantalla-cine">PANTALLA</div>
 
 <div class="grilla-butacas">
@@ -14,6 +15,7 @@
         {{ butaca.id }}
     </div>
     }
+    </div>
 </div>
 
 <div class="leyenda">
@@ -22,17 +24,36 @@
     <div class="item"><span class="caja ocupado"></span> Ocupada</div>
 </div>
 
-<div class="resumen-compra">
-    <h3>Entradas seleccionadas: {{ butacasSeleccionadas.length }}</h3>
+<form [formGroup]="reservaForm" (ngSubmit)="confirmarReserva()" class="resumen-compra">
+    <h3>Resumen de Selección</h3>
     
-    <div class="lista-butacas">
-    @for (b of butacasSeleccionadas; track b.id) {
-        <span class="badge-butaca">{{ b.id }}</span>
-    }
+    <div class="butacas-elegidas">
+      @if (butacasSeleccionadas.length === 0) {
+        <p class="texto-vacio">No seleccionaste ninguna butaca todavía.</p>
+      } @else {
+        <p>Has seleccionado: 
+          <strong>{{ butacasSeleccionadas.length }}</strong> butaca(s) 
+          ( {{ nombresButacasSeleccionadas }} ) 
+        </p>
+      }
     </div>
 
-    <button class="btn-comprar" [disabled]="butacasSeleccionadas.length === 0" (click)="confirmarReserva()">
-    Confirmar Asientos
+    <!-- MENSAJES DE ERROR DEL CUSTOM VALIDATOR -->
+    <div class="alertas-validacion">
+      @if (reservaForm.get('butacas_seleccionadas')?.hasError('noMismaFila')) {
+        <p class="error-msg">⚠️ Las butacas seleccionadas deben estar en la misma fila.</p>
+      }
+      @if (reservaForm.get('butacas_seleccionadas')?.hasError('noContiguas')) {
+        <p class="error-msg">⚠️ No podés dejar asientos vacíos entre tus butacas.</p>
+      }
+    </div>
+
+    <button 
+      type="submit" 
+      class="btn-comprar-principal" 
+      [disabled]="reservaForm.invalid || butacasSeleccionadas.length === 0">
+      Continuar al Pago
     </button>
-</div>
+  </form>
+
 </section>
