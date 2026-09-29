@@ -21,6 +21,7 @@ export class PeliculaDetalle implements OnInit {
   pelicula: any = null;
   cargando: boolean = true;
   funciones: any[] = [];
+  funcionSeleccionada: any = null;
 
   async ngOnInit() {
     // ID que viene en la URL
@@ -43,10 +44,16 @@ export class PeliculaDetalle implements OnInit {
   }
 
 volver() {
-  this.location.back(); // Vuelve a la pagina anterior (el catalogo)
+  this.location.back(); // esto vuelve a la pagina anterior (el catalogo)
   }
 
 irAButacas() {
-  this.router.navigate(['/butacas', this.pelicula.id]);
-}
+    if (this.funcionSeleccionada) {
+      this.router.navigate(['/butacas', this.funcionSeleccionada.id]);
+    }
+  }
+
+seleccionarFuncion(funcion: any) {
+    this.funcionSeleccionada = funcion;
+  }
 }

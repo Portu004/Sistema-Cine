@@ -35,19 +35,26 @@
             <p style="color: #a0a0a0;">No hay funciones programadas por el momento.</p>
             } @else {
             @for (funcion of funciones; track funcion.id) {
-                <button class="btn-horario" (click)="irAButacas()">
-                <!-- Mostramos la hora  -->
+                <button 
+                class="btn-horario" 
+                [class.activo]="funcionSeleccionada?.id === funcion.id"
+                (click)="seleccionarFuncion(funcion)">
                 <span class="hora">{{ funcion.fecha_hora_inicio | date:'shortTime' }}</span>
                 <div class="detalles-funcion">
-                <span class="badge-mini">{{ funcion.formato }}</span>
-                <span class="badge-mini">{{ funcion.idioma }}</span>
+                    <span class="badge-mini">{{ funcion.formato }}</span>
+                    <span class="badge-mini">{{ funcion.idioma }}</span>
                 </div>
                 </button>
             }
             }
         </div>
         
-        <button class="btn-comprar-principal" (click)="irAButacas()">Continuar al Pago</button>
+        <button 
+            class="btn-comprar-principal" 
+            [disabled]="!funcionSeleccionada"
+            (click)="irAButacas()">
+            Elegir Butacas
+        </button>
         </div>
     </div>
     </div>

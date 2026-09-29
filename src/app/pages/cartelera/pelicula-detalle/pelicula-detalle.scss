@@ -57,38 +57,38 @@
     margin: 0 0 1rem 0;
   }
 
-  .badges {
+.badges {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
 
-    .badge {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 500;
+.badge {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
       
-      &.highlight {
-        border: 1px solid #3c78b4;
-        background-color: rgba(60, 120, 180, 0.1);
+    &.highlight {
+      border: 1px solid #3c78b4;
+      background-color: rgba(60, 120, 180, 0.1);
       }
     }
-  }
+}
 
-  .sinopsis-box {
-    margin-bottom: 2.5rem;
+.sinopsis-box {
+  margin-bottom: 2.5rem;
     
-    h3 {
-      color: #a0a0a0;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+  h3 {
+    color: #a0a0a0;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
     }
     
     p {
-      line-height: 1.6;
-      font-size: 1.1rem;
-      color: #e0e0e0;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #e0e0e0;
     }
   }
 }
@@ -113,12 +113,12 @@
     }
   }
 
-  .horarios-grid {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+.horarios-grid {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
 
-    .btn-horario {
+  .btn-horario {
       background-color: transparent;
       border: 1px solid #3c78b4;
       color: white;
@@ -129,16 +129,23 @@
       transition: all 0.2s;
 
       &:hover {
-        background-color: rgba(60, 120, 180, 0.1);
-      }
-      
-      &.active {
-        background-color: #3c78b4;
+    background-color: rgba(60, 120, 180, 0.1);
+  }
+
+      &.activo {
+      background-color: #3c78b4;
+      border-color: #4a90e2;
+      transform: scale(1.05);
+
+      .badge-mini {
+      border-color: #fff;
+      background-color: rgba(255,255,255,0.2);
       }
     }
   }
+}
 
-  .btn-comprar-principal {
+.btn-comprar-principal {
     width: 100%;
     background-color: #3c78b4;
     color: white;
@@ -153,5 +160,11 @@
     &:hover {
       background-color: #4a90e2;
     }
+
+    &:disabled {
+    background-color: #2a2a3a;
+    color: #666;
+    cursor: not-allowed;
+  }
   }
 }
